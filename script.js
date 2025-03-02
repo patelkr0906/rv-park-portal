@@ -16,7 +16,7 @@ const auth = firebase.auth();
 document.getElementById("loginForm").addEventListener("submit", function(e) {
     e.preventDefault();
     
-    let email = document.getElementById("username").value;
+    let email = document.getElementById("email").value;
     let password = document.getElementById("password").value;
 
     auth.signInWithEmailAndPassword(email, password)
