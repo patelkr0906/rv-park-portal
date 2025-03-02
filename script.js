@@ -1,3 +1,7 @@
+// Import Firebase modules (Firebase v9+)
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+
 // Firebase Configuration
 const firebaseConfig = {
     apiKey: "AIzaSyC8dXLkSxci4m81P8zF9HZfLJkIN24XD7Y",
@@ -9,8 +13,8 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
-firebase.initializeApp(firebaseConfig);
-const auth = firebase.auth();
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
 
 // Handle Login
 document.getElementById("loginForm").addEventListener("submit", function(e) {
@@ -19,7 +23,7 @@ document.getElementById("loginForm").addEventListener("submit", function(e) {
     let email = document.getElementById("email").value;
     let password = document.getElementById("password").value;
 
-    auth.signInWithEmailAndPassword(email, password)
+    signInWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
             console.log("Login successful", userCredential.user);
             document.getElementById("loginContainer").style.display = "none";
@@ -34,7 +38,7 @@ document.getElementById("loginForm").addEventListener("submit", function(e) {
 
 // Handle Logout
 document.getElementById("logoutBtn").addEventListener("click", function() {
-    auth.signOut().then(() => {
+    signOut(auth).then(() => {
         console.log("User logged out");
         document.getElementById("portalContainer").style.display = "none";
         document.getElementById("loginContainer").style.display = "block";
@@ -44,7 +48,7 @@ document.getElementById("logoutBtn").addEventListener("click", function() {
 });
 
 // Check Authentication State
-auth.onAuthStateChanged((user) => {
+onAuthStateChanged(auth, (user) => {
     if (user) {
         console.log("User is logged in:", user);
         document.getElementById("loginContainer").style.display = "none";
@@ -55,4 +59,3 @@ auth.onAuthStateChanged((user) => {
         document.getElementById("loginContainer").style.display = "block";
     }
 });
-
