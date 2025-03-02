@@ -3,52 +3,54 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
-
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            margin-top: 50px;
-        }
-        #loginContainer, #portalContainer {
-            width: 300px;
-            margin: auto;
-            padding: 20px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-        }
-        input, button {
-            width: 100%;
-            padding: 10px;
-            margin: 5px 0;
-        }
-        #loginError {
-            color: red;
-            display: none;
-        }
-    </style>
+    <title>RV Park Management</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
-    <div id="loginContainer">
-        <h2>Login</h2>
-        <form id="loginForm">
-            <input type="email" id="email" placeholder="Email" required><br>
-            <input type="password" id="password" placeholder="Password" required><br>
-            <button type="submit">Login</button>
-        </form>
-        <p id="loginError"></p>
-    </div>
+    <header>
+        <h1>Welcome to RV Park Management</h1>
+    </header>
 
-    <div id="portalContainer" style="display: none;">
-        <h2>Welcome to the Portal</h2>
-        <button id="logoutBtn">Logout</button>
-    </div>
+    <nav>
+        <ul>
+            <li><a href="sites.html">Manage RV Sites</a></li>
+            <li><a href="reservations.html">Reservations</a></li>
+            <li><a href="guests.html">Guest Management</a></li>
+            <li><a href="reports.html">Reports</a></li>
+            <li><a href="settings.html">Settings</a></li>
+        </ul>
+    </nav>
 
-    <!-- Load script.js as a module -->
-    <script type="module" src="script.js"></script>
+    <main>
+        <section class="dashboard">
+            <h2>Dashboard Overview</h2>
+            <div class="dashboard-cards">
+                <div class="card">
+                    <h3>Total RV Sites</h3>
+                    <p id="totalSites">0</p>
+                </div>
+                <div class="card">
+                    <h3>Available Sites</h3>
+                    <p id="availableSites">0</p>
+                </div>
+                <div class="card">
+                    <h3>Reserved Sites</h3>
+                    <p id="reservedSites">0</p>
+                </div>
+                <div class="card">
+                    <h3>Occupied Sites</h3>
+                    <p id="occupiedSites">0</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 RV Park Management. All rights reserved.</p>
+    </footer>
+
+    <script src="dashboard.js"></script>
 
 </body>
 </html>
