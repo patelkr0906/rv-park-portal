@@ -1,31 +1,63 @@
-document.addEventListener("DOMContentLoaded", function () {
-    updateDashboard();
-});
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - RV Park Management</title>
+    <link rel="stylesheet" href="styles.css">
+    <script defer src="dashboard.js"></script>
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="dashboard.html">Dashboard</a></li>
+            <li><a href="sites.html">RV Sites Management</a></li>
+            <li><a href="settings.html">Settings</a></li>
+        </ul>
+    </nav>
 
-// Function to update the dashboard statistics
-function updateDashboard() {
-    let sites = JSON.parse(localStorage.getItem("rvSites")) || [];
+    <div class="container">
+        <h1>Dashboard</h1>
+        
+        <!-- Dashboard Statistics -->
+        <div class="dashboard-stats">
+            <div class="stat-card">
+                <h3>Total Sites</h3>
+                <p id="totalSites">0</p>
+            </div>
+            <div class="stat-card available">
+                <h3>Available Sites</h3>
+                <p id="availableSites">0</p>
+            </div>
+            <div class="stat-card reserved">
+                <h3>Reserved Sites</h3>
+                <p id="reservedSites">0</p>
+            </div>
+            <div class="stat-card occupied">
+                <h3>Occupied Sites</h3>
+                <p id="occupiedSites">0</p>
+            </div>
+            <div class="stat-card maintenance">
+                <h3>Maintenance Sites</h3>
+                <p id="maintenanceSites">0</p>
+            </div>
+        </div>
 
-    let totalSites = sites.length;
-    let availableSites = sites.filter(site => site.status === "available").length;
-    let reservedSites = sites.filter(site => site.status === "reserved").length;
-    let occupiedSites = sites.filter(site => site.status === "occupied").length;
+        <!-- Recent Reservations -->
+        <div class="dashboard-section">
+            <h2>Recent Reservations</h2>
+            <ul id="recentReservations">
+                <li>Loading...</li>
+            </ul>
+        </div>
 
-    document.getElementById("totalSites").textContent = totalSites;
-    document.getElementById("availableSites").textContent = availableSites;
-    document.getElementById("reservedSites").textContent = reservedSites;
-    document.getElementById("occupiedSites").textContent = occupiedSites;
-}
-
-// Simulated data for first-time users
-if (!localStorage.getItem("rvSites")) {
-    const initialSites = [
-        { siteNumber: "1", status: "available" },
-        { siteNumber: "2", status: "occupied" },
-        { siteNumber: "3", status: "reserved" },
-        { siteNumber: "4", status: "available" },
-        { siteNumber: "5", status: "maintenance" }
-    ];
-    localStorage.setItem("rvSites", JSON.stringify(initialSites));
-    updateDashboard();
-}
+        <!-- Maintenance Alerts -->
+        <div class="dashboard-section">
+            <h2>Maintenance Alerts</h2>
+            <ul id="maintenanceAlerts">
+                <li>Loading...</li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>
