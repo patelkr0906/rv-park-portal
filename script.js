@@ -9,9 +9,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
         // Hardcoded credentials (for testing only)
         const firebaseConfig = {
-    apiKey: "YOUR_API_KEY",
-    authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
-    projectId: "YOUR_PROJECT_ID"
+    apiKey: "AIzaSyC8dXLkSxci4m81P8zF9HZfLJkIN24XD7Y",
+    authDomain: "rv-park-portal.firebaseapp.com",
+    projectId: "rv-park-port"
 };
 firebase.initializeApp(firebaseConfig);
 const auth = firebase.auth();
