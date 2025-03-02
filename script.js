@@ -14,7 +14,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const enteredUsername = document.getElementById("username").value;
         const enteredPassword = document.getElementById("password").value;
 
-        if (enteredUsername === validUsername && enteredPassword === validPassword) {
+        if (enteredUsername.trim() === validUsername && enteredPassword.trim() === validPassword) {
             loginContainer.style.display = "none";
             portalContainer.style.display = "block";
         } else {
@@ -22,4 +22,3 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 });
-
