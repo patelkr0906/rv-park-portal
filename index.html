@@ -3,54 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RV Park Management</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>RV Park Portal</title>
 </head>
 <body>
+    <h1>Welcome to RV Park Portal</h1>
 
-    <header>
-        <h1>Welcome to RV Park Management</h1>
-    </header>
+    <!-- Login Section -->
+    <div id="loginContainer">
+        <h2>Login</h2>
+        <input type="email" id="email" placeholder="Email">
+        <input type="password" id="password" placeholder="Password">
+        <button id="loginBtn">Login</button>
+        <p id="loginError" style="color: red;"></p>
+    </div>
 
-    <nav>
-        <ul>
-            <li><a href="sites.html">Manage RV Sites</a></li>
-            <li><a href="reservations.html">Reservations</a></li>
-            <li><a href="guests.html">Guest Management</a></li>
-            <li><a href="reports.html">Reports</a></li>
-            <li><a href="settings.html">Settings</a></li>
-        </ul>
-    </nav>
+    <!-- Portal Section (Hidden until login) -->
+    <div id="portalContainer" style="display: none;">
+        <h2>Dashboard</h2>
+        <button id="logoutBtn">Logout</button>
 
-    <main>
-        <section class="dashboard">
-            <h2>Dashboard Overview</h2>
-            <div class="dashboard-cards">
-                <div class="card">
-                    <h3>Total RV Sites</h3>
-                    <p id="totalSites">0</p>
-                </div>
-                <div class="card">
-                    <h3>Available Sites</h3>
-                    <p id="availableSites">0</p>
-                </div>
-                <div class="card">
-                    <h3>Reserved Sites</h3>
-                    <p id="reservedSites">0</p>
-                </div>
-                <div class="card">
-                    <h3>Occupied Sites</h3>
-                    <p id="occupiedSites">0</p>
-                </div>
-            </div>
-        </section>
-    </main>
+        <h3>Reservations</h3>
+        <button id="addReservationBtn">Add Reservation</button>
+        <ul id="reservationsList"></ul>
 
-    <footer>
-        <p>&copy; 2025 RV Park Management. All rights reserved.</p>
-    </footer>
+        <h3>Settings</h3>
+        <button id="loadSettingsBtn">Load Settings</button>
+        <p id="settingsDisplay"></p>
+    </div>
 
-    <script src="dashboard.js"></script>
-
+    <!-- Firebase and JavaScript files -->
+    <script type="module" src="script.js"></script>
+    <script type="module" src="reservations.js"></script>
+    <script type="module" src="settings.js"></script>
 </body>
 </html>
