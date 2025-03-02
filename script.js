@@ -8,11 +8,14 @@ document.addEventListener("DOMContentLoaded", function () {
         event.preventDefault();
 
         // Hardcoded credentials (for testing only)
-        const validUsername = "admin";
-        const validPassword = "password123";
+        const firebaseConfig = {
+    apiKey: "YOUR_API_KEY",
+    authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
+    projectId: "YOUR_PROJECT_ID"
+};
+firebase.initializeApp(firebaseConfig);
+const auth = firebase.auth();
 
-        const enteredUsername = document.getElementById("username").value;
-        const enteredPassword = document.getElementById("password").value;
 
         if (enteredUsername.trim() === validUsername && enteredPassword.trim() === validPassword) {
             loginContainer.style.display = "none";
