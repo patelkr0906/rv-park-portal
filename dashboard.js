@@ -1,61 +1,31 @@
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-app.js";
-import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-auth.js";
-import { getFirestore, doc, onSnapshot } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-firestore.js";
-
-// Firebase configuration
-const firebaseConfig = {
-    apiKey: "YOUR_API_KEY",
-    authDomain: "YOUR_AUTH_DOMAIN",
-    projectId: "YOUR_PROJECT_ID",
-    storageBucket: "YOUR_STORAGE_BUCKET",
-    messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-    appId: "YOUR_APP_ID"
-};
-
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
-const db = getFirestore(app);
-
-// Redirect if not logged in
-onAuthStateChanged(auth, (user) => {
-    if (user) {
-        document.getElementById("userInfo").innerText = `Logged in as: ${user.email}`;
-        loadDashboardData();
-    } else {
-        window.location.href = "index.html";
-    }
+document.addEventListener("DOMContentLoaded", function () {
+    updateDashboard();
 });
 
-// Logout function
-document.getElementById("logoutBtn").addEventListener("click", () => {
-    signOut(auth).then(() => {
-        window.location.href = "index.html";
-    }).catch((error) => {
-        console.error("Logout failed:", error);
-    });
-});
+// Function to update the dashboard statistics
+function updateDashboard() {
+    let sites = JSON.parse(localStorage.getItem("rvSites")) || [];
 
-// Function to load real-time data
-function loadDashboardData() {
-    // Listening for total sales updates
-    onSnapshot(doc(db, "dashboard", "sales"), (doc) => {
-        if (doc.exists()) {
-            document.getElementById("totalSales").innerText = `$${doc.data().total}`;
-        }
-    });
+    let totalSites = sites.length;
+    let availableSites = sites.filter(site => site.status === "available").length;
+    let reservedSites = sites.filter(site => site.status === "reserved").length;
+    let occupiedSites = sites.filter(site => site.status === "occupied").length;
 
-    // Listening for inventory count updates
-    onSnapshot(doc(db, "dashboard", "inventory"), (doc) => {
-        if (doc.exists()) {
-            document.getElementById("inventoryCount").innerText = doc.data().count;
-        }
-    });
+    document.getElementById("totalSites").textContent = totalSites;
+    document.getElementById("availableSites").textContent = availableSites;
+    document.getElementById("reservedSites").textContent = reservedSites;
+    document.getElementById("occupiedSites").textContent = occupiedSites;
+}
 
-    // Listening for active users updates
-    onSnapshot(doc(db, "dashboard", "users"), (doc) => {
-        if (doc.exists()) {
-            document.getElementById("activeUsers").innerText = doc.data().active;
-        }
-    });
+// Simulated data for first-time users
+if (!localStorage.getItem("rvSites")) {
+    const initialSites = [
+        { siteNumber: "1", status: "available" },
+        { siteNumber: "2", status: "occupied" },
+        { siteNumber: "3", status: "reserved" },
+        { siteNumber: "4", status: "available" },
+        { siteNumber: "5", status: "maintenance" }
+    ];
+    localStorage.setItem("rvSites", JSON.stringify(initialSites));
+    updateDashboard();
 }
