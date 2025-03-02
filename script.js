@@ -1,6 +1,7 @@
 // Import Firebase modules (Firebase v9+)
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
 import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
 // Firebase Configuration
 const firebaseConfig = {
@@ -15,12 +16,16 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
+const db = getFirestore(app);
 
 // Check User Authentication
-onAuthStateChanged(auth, (user) => {
+onAuthStateChanged(auth, async (user) => {
     if (user) {
         document.getElementById("portalContainer").style.display = "block";
         document.getElementById("loginContainer").style.display = "none";
+        loadUserRole(user.uid);
+        loadReservations();
+        loadSettings();
     } else {
         document.getElementById("portalContainer").style.display = "none";
         document.getElementById("loginContainer").style.display = "block";
@@ -31,7 +36,26 @@ onAuthStateChanged(auth, (user) => {
 document.getElementById("logoutBtn").addEventListener("click", () => {
     signOut(auth).then(() => {
         window.location.href = "index.html";
-    }).catch((error) => {
-        console.error("Logout Error:", error);
     });
 });
+
+// Function to Load User Role
+async function loadUserRole(userId) {
+    const userDoc = await getDoc(doc(db, "users", userId));
+    if (userDoc.exists()) {
+        const userData = userDoc.data();
+        document.getElementById("userRole").innerText = `Role: ${userData.role}`;
+    }
+}
+
+// Function to Load Reservations
+async function loadReservations() {
+    // Future implementation for fetching reservations from Firestore
+    console.log("Fetching reservations...");
+}
+
+// Function to Load Settings
+async function loadSettings() {
+    // Future implementation for fetching settings from Firestore
+    console.log("Fetching settings...");
+}
