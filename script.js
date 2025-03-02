@@ -1,18 +1,25 @@
-document.getElementById("loginForm").addEventListener("submit", function(event) {
-    event.preventDefault();
-    
-    let username = document.getElementById("username").value;
-    let password = document.getElementById("password").value;
+document.addEventListener("DOMContentLoaded", function () {
+    const loginForm = document.getElementById("loginForm");
+    const loginContainer = document.getElementById("loginContainer");
+    const portalContainer = document.getElementById("portalContainer");
+    const loginError = document.getElementById("loginError");
 
-    if (username === "admin" && password === "password") {
-        document.getElementById("loginContainer").style.display = "none";
-        document.getElementById("portalContainer").style.display = "block";
-    } else {
-        document.getElementById("loginError").style.display = "block";
-    }
+    loginForm.addEventListener("submit", function (event) {
+        event.preventDefault();
+
+        // Hardcoded credentials (for testing only)
+        const validUsername = "admin";
+        const validPassword = "password123";
+
+        const enteredUsername = document.getElementById("username").value;
+        const enteredPassword = document.getElementById("password").value;
+
+        if (enteredUsername === validUsername && enteredPassword === validPassword) {
+            loginContainer.style.display = "none";
+            portalContainer.style.display = "block";
+        } else {
+            loginError.style.display = "block";
+        }
+    });
 });
 
-document.getElementById("bookingForm").addEventListener("submit", function(event) {
-    event.preventDefault();
-    alert("Booking Confirmed!");
-});
