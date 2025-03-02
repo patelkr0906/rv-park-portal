@@ -55,3 +55,4 @@ auth.onAuthStateChanged((user) => {
         document.getElementById("loginContainer").style.display = "block";
     }
 });
+
