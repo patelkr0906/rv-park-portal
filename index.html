@@ -4,36 +4,43 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>RV Park Portal</title>
+    <link rel="stylesheet" href="styles.css">
+    <script type="module" src="firebase.js"></script>
+    <script type="module" src="auth.js"></script>
+    <script type="module" src="dashboard.js"></script>
 </head>
 <body>
-    <h1>Welcome to RV Park Portal</h1>
+    <header>
+        <img src="assets/logo.png" alt="RV Park Logo" class="logo">
+        <h1>Welcome to RV Park Portal</h1>
+    </header>
 
-    <!-- Login Section -->
-    <div id="loginContainer">
-        <h2>Login</h2>
-        <input type="email" id="email" placeholder="Email">
-        <input type="password" id="password" placeholder="Password">
-        <button id="loginBtn">Login</button>
-        <p id="loginError" style="color: red;"></p>
-    </div>
+    <nav>
+        <ul>
+            <li><a href="dashboard.html">Dashboard</a></li>
+            <li><a href="reservations.html">Reservations</a></li>
+            <li><a href="sites.html">Sites</a></li>
+            <li><a href="settings.html">Settings</a></li>
+            <li><a href="#" id="logout">Logout</a></li>
+        </ul>
+    </nav>
 
-    <!-- Portal Section (Hidden until login) -->
-    <div id="portalContainer" style="display: none;">
-        <h2>Dashboard</h2>
-        <button id="logoutBtn">Logout</button>
+    <main>
+        <h2>Manage Your RV Park Efficiently</h2>
+        <p>Use the menu to navigate through the system.</p>
+    </main>
 
-        <h3>Reservations</h3>
-        <button id="addReservationBtn">Add Reservation</button>
-        <ul id="reservationsList"></ul>
+    <footer>
+        <p>&copy; 2025 RV Park Portal. All rights reserved.</p>
+    </footer>
 
-        <h3>Settings</h3>
-        <button id="loadSettingsBtn">Load Settings</button>
-        <p id="settingsDisplay"></p>
-    </div>
+    <script type="module">
+        import { logoutUser } from './auth.js';
 
-    <!-- Firebase and JavaScript files -->
-    <script type="module" src="script.js"></script>
-    <script type="module" src="reservations.js"></script>
-    <script type="module" src="settings.js"></script>
+        document.getElementById('logout').addEventListener('click', (e) => {
+            e.preventDefault();
+            logoutUser();
+        });
+    </script>
 </body>
 </html>
