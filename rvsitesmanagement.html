@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RV Sites Management</title>
+    <link rel="stylesheet" href="styles.css">
+    <script defer src="sites.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>RV Sites Management</h1>
+        
+        <!-- Search and Filter Section -->
+        <div class="controls">
+            <input type="text" id="searchInput" placeholder="Search sites...">
+            <select id="filterCategory">
+                <option value="">All Site Types</option>
+            </select>
+            <select id="filterStatus">
+                <option value="">All Status</option>
+                <option value="available">Available</option>
+                <option value="occupied">Occupied</option>
+                <option value="maintenance">Maintenance</option>
+            </select>
+            <button id="exportCSV">Export CSV</button>
+            <input type="file" id="importCSV" accept=".csv">
+            <button id="toggleDarkMode">Dark Mode</button>
+        </div>
+        
+        <!-- Site Form -->
+        <form id="siteForm">
+            <input type="text" id="siteNumber" placeholder="Site Number" required>
+            <select id="siteType" required>
+                <option value="">Select Site Type</option>
+                <option value="pull-through">Pull-Through</option>
+                <option value="back-in">Back-In</option>
+                <option value="tent">Tent</option>
+            </select>
+            <select id="siteStatus" required>
+                <option value="">Select Status</option>
+                <option value="available">Available</option>
+                <option value="occupied">Occupied</option>
+                <option value="maintenance">Maintenance</option>
+            </select>
+            <input type="text" id="currentOccupant" placeholder="Current Occupant (if any)">
+            <input type="date" id="reservationDate" placeholder="Reservation Date">
+            <input type="text" id="notes" placeholder="Notes">
+            <button type="submit">Add Site</button>
+        </form>
+        
+        <!-- Sites Table -->
+        <table>
+            <thead>
+                <tr>
+                    <th>Site Number <button class="sort" data-sort="siteNumber">↕</button></th>
+                    <th>Type</th>
+                    <th>Status</th>
+                    <th>Current Occupant</th>
+                    <th>Reservation Date</th>
+                    <th>Notes</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody id="sitesTableBody">
+                <!-- Sites will be displayed here -->
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
