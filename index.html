@@ -3,143 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RV Park Management Portal</title>
-    <link rel="stylesheet" href="styles.css">
-    <script defer src="script.js"></script>
+    <title>Login | RV Park Portal</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; margin: 50px; }
+        #portalContainer { display: none; }
+        #loginError { color: red; display: none; }
+    </style>
 </head>
 <body>
+
+    <!-- Login Form -->
     <div id="loginContainer">
-        <h2>Login to RV Park Portal</h2>
+        <h2>Login</h2>
         <form id="loginForm">
-            <label for="username">Username:</label>
-            <input type="text" id="username" required>
-            
-            <label for="password">Password:</label>
-            <input type="password" id="password" required>
-            
+            <input type="email" id="username" placeholder="Email" required><br><br>
+            <input type="password" id="password" placeholder="Password" required><br><br>
             <button type="submit">Login</button>
         </form>
-        <p id="loginError" style="color: red; display: none;">Invalid credentials. Try again.</p>
+        <p id="loginError"></p>
     </div>
 
-    <div id="portalContainer" style="display: none;">
-        <header>
-            <h1>RV Park Management Portal</h1>
-            <nav>
-                <ul>
-                    <li><a href="#dashboard">Dashboard</a></li>
-                    <li><a href="#booking">Reservations</a></li>
-                    <li><a href="#map">Interactive Map</a></li>
-                    <li><a href="#reports">Reports</a></li>
-                    <li><a href="#settings">Settings</a></li>
-                </ul>
-            </nav>
-        </header>
-        
-        <main>
-            <section id="dashboard">
-                <h2>Dashboard</h2>
-                <p>Overview of bookings, revenue, and park occupancy.</p>
-            </section>
-
-            <section id="booking">
-                <h2>Guest Booking System</h2>
-                <form id="bookingForm">
-                    <label for="guestName">Guest Name:</label>
-                    <input type="text" id="guestName" name="guestName" required>
-                    
-                    <label for="email">Email:</label>
-                    <input type="email" id="email" name="email" required>
-                    
-                    <label for="phone">Phone Number:</label>
-                    <input type="tel" id="phone" name="phone" required>
-                    
-                    <label for="checkIn">Check-in Date:</label>
-                    <input type="date" id="checkIn" name="checkIn" required>
-                    
-                    <label for="checkOut">Check-out Date:</label>
-                    <input type="date" id="checkOut" name="checkOut" required>
-                    
-                    <label for="siteNumber">Site Number:</label>
-                    <input type="number" id="siteNumber" name="siteNumber" required>
-                    
-                    <label for="vehicleType">RV/Vehicle Type:</label>
-                    <select id="vehicleType" name="vehicleType">
-                        <option value="motorhome">Motorhome</option>
-                        <option value="trailer">Travel Trailer</option>
-                        <option value="fifthWheel">Fifth Wheel</option>
-                        <option value="camperVan">Camper Van</option>
-                    </select>
-                    
-                    <label for="rateType">Rate Type:</label>
-                    <select id="rateType" name="rateType">
-                        <option value="nightly">Nightly</option>
-                        <option value="weekly">Weekly</option>
-                        <option value="monthly">Monthly</option>
-                        <option value="specialEvent">Special Event</option>
-                    </select>
-                    
-                    <label for="paymentMethod">Payment Method:</label>
-                    <select id="paymentMethod" name="paymentMethod">
-                        <option value="creditCard">Credit Card</option>
-                        <option value="paypal">PayPal</option>
-                        <option value="cash">Cash</option>
-                    </select>
-                    
-                    <label for="electricHookup">Electric Hookup Required:</label>
-                    <input type="checkbox" id="electricHookup" name="electricHookup">
-                    
-                    <label for="petFriendly">Pet Friendly:</label>
-                    <input type="checkbox" id="petFriendly" name="petFriendly">
-                    
-                    <label for="additionalRequests">Additional Requests:</label>
-                    <textarea id="additionalRequests" name="additionalRequests"></textarea>
-                    
-                    <button type="submit">Book Now</button>
-                </form>
-            </section>
-
-            <section id="map">
-                <h2>Interactive Site Map</h2>
-                <canvas id="rvMap"></canvas>
-                <p>Click on a site to view details and make a reservation.</p>
-                <p>Color-coded availability: Green = Available, Red = Booked.</p>
-            </section>
-
-            <section id="reports">
-                <h2>Reports & Insights</h2>
-                <ul>
-                    <li>Revenue Breakdown</li>
-                    <li>Occupancy Forecasting</li>
-                    <li>Guest Stay Trends</li>
-                    <li>Late Checkouts & No-Shows Report</li>
-                    <li>Custom Export Options</li>
-                    <li>Special Event Performance Analysis</li>
-                </ul>
-            </section>
-
-            <section id="settings">
-                <h2>Settings</h2>
-                <ul>
-                    <li>Custom Check-in/Check-out Times</li>
-                    <li>User Roles & Permissions</li>
-                    <li>SMS Alerts for Guests & Staff</li>
-                    <li>Loyalty Program Integration</li>
-                    <li>Dynamic Fee Adjustments</li>
-                    <li>Special Event Pricing Configuration</li>
-                    <li>Automatic Total Calculation Logic</li>
-                    <li>Discount Exemptions for Special Events, Weekly, and Monthly Rates</li>
-                    <li>Monthly Rate Adjustment for February (28 or 29 Days)</li>
-                </ul>
-            </section>
-        </main>
-
-        <footer>
-            <p>&copy; 2025 RV Park Management. All rights reserved.</p>
-        </footer>
+    <!-- Portal Dashboard (after login) -->
+    <div id="portalContainer">
+        <h2>Welcome to the Portal</h2>
+        <button id="logoutBtn">Logout</button>
     </div>
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/10.0.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.0.0/firebase-auth.js"></script>
+    <script src="script.js"></script>
+
 </body>
 </html>
-
-<script src="https://www.gstatic.com/firebasejs/10.0.0/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.0.0/firebase-auth.js"></script>
