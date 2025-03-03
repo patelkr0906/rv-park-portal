@@ -4,43 +4,46 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>RV Park Portal</title>
+    
+    <!-- Firebase SDK -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { firebaseConfig } from "./firebaseConfig.js";
+        
+        // Initialize Firebase
+        initializeApp(firebaseConfig);
+    </script>
+
+    <!-- Stylesheets -->
     <link rel="stylesheet" href="styles.css">
-    <script type="module" src="firebase.js"></script>
-    <script type="module" src="auth.js"></script>
-    <script type="module" src="dashboard.js"></script>
+
 </head>
 <body>
     <header>
-        <img src="assets/logo.png" alt="RV Park Logo" class="logo">
         <h1>Welcome to RV Park Portal</h1>
     </header>
 
-    <nav>
-        <ul>
-            <li><a href="dashboard.html">Dashboard</a></li>
-            <li><a href="reservations.html">Reservations</a></li>
-            <li><a href="sites.html">Sites</a></li>
-            <li><a href="settings.html">Settings</a></li>
-            <li><a href="#" id="logout">Logout</a></li>
-        </ul>
-    </nav>
-
     <main>
-        <h2>Manage Your RV Park Efficiently</h2>
-        <p>Use the menu to navigate through the system.</p>
+        <section id="login-section">
+            <h2>Login</h2>
+            <input type="email" id="email" placeholder="Email">
+            <input type="password" id="password" placeholder="Password">
+            <button id="loginBtn">Login</button>
+            <button id="logoutBtn" style="display: none;">Logout</button>
+        </section>
+
+        <section id="user-info" style="display: none;">
+            <h2>User Dashboard</h2>
+            <p id="user-email"></p>
+        </section>
     </main>
 
     <footer>
-        <p>&copy; 2025 RV Park Portal. All rights reserved.</p>
+        <p>&copy; 2025 RV Park Portal</p>
     </footer>
 
-    <script type="module">
-        import { logoutUser } from './auth.js';
-
-        document.getElementById('logout').addEventListener('click', (e) => {
-            e.preventDefault();
-            logoutUser();
-        });
-    </script>
+    <!-- JavaScript Files -->
+    <script type="module" src="auth.js"></script>
+    <script type="module" src="script.js"></script>
 </body>
 </html>
