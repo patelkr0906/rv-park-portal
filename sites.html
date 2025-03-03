@@ -3,73 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Manage Sites</title>
+    <title>Sites Management</title>
     <link rel="stylesheet" href="styles.css">
-    <script type="module" src="sites.js"></script>
 </head>
 <body>
-    <header>
-        <h1>Manage Sites</h1>
-        <nav>
-            <a href="dashboard.html">Dashboard</a>
-            <a href="reservations.html">Reservations</a>
-            <a href="settings.html">Settings</a>
-        </nav>
-    </header>
+    <nav class="navbar">
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="dashboard.html">Dashboard</a></li>
+            <li><a href="reservations.html">Reservations</a></li>
+            <li><a href="sites.html" class="active">Sites</a></li>
+            <li><a href="settings.html">Settings</a></li>
+            <li><a href="logout.html">Logout</a></li>
+        </ul>
+    </nav>
 
     <main>
-        <section id="site-management">
-            <h2>Site List</h2>
-            <button id="addSiteBtn">Add New Site</button>
-            
-            <table id="sitesTable">
-                <thead>
-                    <tr>
-                        <th>Site Name</th>
-                        <th>Type</th>
-                        <th>Status</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <!-- Site data will be dynamically populated here -->
-                </tbody>
-            </table>
-        </section>
-
-        <section id="siteFormContainer" class="hidden">
-            <h2 id="formTitle">Add/Edit Site</h2>
-            <form id="siteForm">
-                <label for="siteName">Site Name:</label>
-                <input type="text" id="siteName" required>
-
-                <label for="siteType">Site Type:</label>
-                <select id="siteType">
-                    <option value="RV">RV</option>
-                    <option value="Tent">Tent</option>
-                    <option value="Cabin">Cabin</option>
-                </select>
-
-                <label for="siteStatus">Status:</label>
-                <select id="siteStatus">
-                    <option value="Available">Available</option>
-                    <option value="Occupied">Occupied</option>
-                    <option value="Maintenance">Maintenance</option>
-                </select>
-
-                <button type="submit">Save</button>
-                <button type="button" id="cancelBtn">Cancel</button>
-            </form>
-        </section>
+        <h1>Manage Sites</h1>
+        <button id="addSiteBtn">Add New Site</button>
+        <table>
+            <thead>
+                <tr>
+                    <th>Site ID</th>
+                    <th>Site Name</th>
+                    <th>Type</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody id="sitesTableBody">
+                <!-- Sites data will be populated here -->
+            </tbody>
+        </table>
     </main>
 
-    <script type="module">
-        import { loadSites, setupSiteForm } from "./sites.js";
-
-        document.addEventListener("DOMContentLoaded", () => {
-            loadSites();
-            setupSiteForm();
-        });
-    </script>
+    <script src="sites.js" type="module"></script>
 </body>
 </html>
