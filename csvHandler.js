@@ -1,84 +1,68 @@
-// csvHandler.js
+import { db } from "./firebaseConfig.js";
+import { collection, addDoc, getDocs } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
-document.addEventListener("DOMContentLoaded", () => {
-    document.getElementById("exportCSV").addEventListener("click", exportCSV);
-    document.getElementById("importCSV").addEventListener("change", importCSV);
-});
-
-// Export table data to CSV
-function exportCSV() {
-    const table = document.querySelector("table");
-    let csvContent = "";
-    
-    // Get table headers
-    const headers = [];
-    table.querySelectorAll("thead th").forEach(th => {
-        headers.push(th.innerText.trim());
-    });
-    csvContent += headers.join(",") + "\n";
-
-    // Get table rows
-    table.querySelectorAll("tbody tr").forEach(row => {
-        const rowData = [];
-        row.querySelectorAll("td").forEach(td => {
-            rowData.push(td.innerText.trim());
-        });
-        csvContent += rowData.join(",") + "\n";
-    });
-
-    // Create downloadable CSV file
-    const blob = new Blob([csvContent], { type: "text/csv" });
-    const a = document.createElement("a");
-    a.href = URL.createObjectURL(blob);
-    a.download = "rv_sites_data.csv";
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-}
-
-// Import CSV file and update table
-function importCSV(event) {
+// Function to import CSV and add data to Firestore
+document.getElementById("importCsv").addEventListener("change", async function (event) {
     const file = event.target.files[0];
     if (!file) return;
 
     const reader = new FileReader();
-    reader.onload = function(e) {
+    reader.onload = async function (e) {
         const csvData = e.target.result;
-        parseCSV(csvData);
-    };
-    reader.readAsText(file);
-}
+        const rows = csvData.split("\n").map(row => row.split(","));
+        if (rows.length < 2) {
+            alert("Invalid CSV file format.");
+            return;
+        }
 
-// Parse CSV data and add it to Firestore
-function parseCSV(csvData) {
-    const rows = csvData.split("\n").map(row => row.split(","));
-    
-    if (rows.length < 2) {
-        alert("Invalid CSV format");
+        const headers = rows[0].map(header => header.trim());
+        const collectionRef = collection(db, "reservations"); // Change collection as needed
+
+        for (let i = 1; i < rows.length; i++) {
+            const rowData = rows[i];
+            if (rowData.length !== headers.length) continue;
+
+            let entry = {};
+            headers.forEach((header, index) => {
+                entry[header] = rowData[index].trim();
+            });
+
+            try {
+                await addDoc(collectionRef, entry);
+            } catch (error) {
+                console.error("Error adding document: ", error);
+            }
+        }
+        alert("CSV Imported Successfully!");
+    };
+
+    reader.readAsText(file);
+});
+
+// Function to export Firestore data to CSV
+document.getElementById("exportCsv").addEventListener("click", async function () {
+    const collectionRef = collection(db, "reservations"); // Change collection as needed
+    const snapshot = await getDocs(collectionRef);
+    if (snapshot.empty) {
+        alert("No data available for export.");
         return;
     }
 
-    const headers = rows[0].map(header => header.trim());
-    const dataRows = rows.slice(1);
-
-    dataRows.forEach(row => {
-        if (row.length !== headers.length) return; // Skip malformed rows
-
-        const siteData = {};
-        headers.forEach((header, index) => {
-            siteData[header.toLowerCase().replace(/\s+/g, "_")] = row[index].trim();
-        });
-
-        // Add to Firestore
-        addSiteToFirestore(siteData);
+    const data = [];
+    snapshot.forEach(doc => {
+        data.push(doc.data());
     });
 
-    alert("CSV data imported successfully!");
-}
+    const headers = Object.keys(data[0]).join(",") + "\n";
+    const csvContent = headers + data.map(row => Object.values(row).join(",")).join("\n");
 
-// Function to add site data to Firestore
-function addSiteToFirestore(siteData) {
-    db.collection("rv_sites").add(siteData)
-        .then(() => console.log("Site added:", siteData))
-        .catch(error => console.error("Error adding site:", error));
-}
+    const blob = new Blob([csvContent], { type: "text/csv" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "reservations.csv";
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+});
