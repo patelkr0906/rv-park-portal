@@ -1,145 +1,124 @@
 /* General Styles */
 body {
     font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
     margin: 0;
     padding: 0;
-    background-color: #f4f4f4;
     color: #333;
 }
 
-/* Navigation Bar */
-nav {
-    background-color: #007bff;
-    padding: 10px;
-    display: flex;
-    justify-content: space-between;
-}
-
-nav ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: flex;
-}
-
-nav ul li {
-    margin-right: 15px;
-}
-
-nav ul li a {
+/* Header */
+header {
+    background: #007bff;
     color: white;
-    text-decoration: none;
-    font-weight: bold;
+    padding: 15px;
+    text-align: center;
+    font-size: 24px;
 }
 
-nav ul li button {
-    background-color: red;
-    color: white;
-    border: none;
-    padding: 5px 10px;
-    cursor: pointer;
-    font-weight: bold;
-}
-
-/* Container */
+/* Main Content */
 .container {
     width: 90%;
     max-width: 1200px;
     margin: 20px auto;
+    background: white;
     padding: 20px;
-    background-color: white;
+    border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    border-radius: 5px;
 }
 
-/* Form Styles */
-form {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 10px;
-    margin-bottom: 20px;
-}
-
-form input, form select, form button {
-    padding: 8px;
-    font-size: 14px;
-}
-
-form button {
-    background-color: #28a745;
+/* Buttons */
+button {
+    background: #007bff;
     color: white;
     border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
     cursor: pointer;
+    font-size: 16px;
 }
 
-/* Table Styles */
+button:hover {
+    background: #0056b3;
+}
+
+button.deleteBtn {
+    background: #dc3545;
+}
+
+button.deleteBtn:hover {
+    background: #a71d2a;
+}
+
+/* Tables */
 table {
     width: 100%;
     border-collapse: collapse;
     margin-top: 20px;
-    background-color: white;
+}
+
+table, th, td {
+    border: 1px solid #ddd;
 }
 
 th, td {
-    border: 1px solid #ddd;
-    padding: 8px;
+    padding: 10px;
     text-align: left;
 }
 
 th {
-    background-color: #007bff;
+    background: #007bff;
     color: white;
 }
 
-/* Button Styles */
-button {
-    padding: 8px 12px;
-    font-size: 14px;
-    cursor: pointer;
-    border: none;
-    border-radius: 3px;
+/* Form Styling */
+.hidden {
+    display: none;
 }
 
-button.sort {
-    background: none;
-    color: white;
+.form-container {
+    background: white;
+    padding: 20px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90%;
+    max-width: 400px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.form-container h2 {
+    margin-top: 0;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
     font-weight: bold;
-    cursor: pointer;
+    margin-bottom: 5px;
 }
 
-button#exportCSV, button#toggleDarkMode {
-    background-color: #17a2b8;
-    color: white;
-}
-
-button#logoutButton {
-    background-color: red;
-}
-
-/* Dark Mode Styles */
-.dark-mode {
-    background-color: #121212;
-    color: #ffffff;
-}
-
-.dark-mode nav {
-    background-color: #1e1e1e;
-}
-
-.dark-mode table {
-    background-color: #232323;
-    color: #ffffff;
-}
-
-.dark-mode input, .dark-mode select, .dark-mode button {
-    background-color: #333;
-    color: #ffffff;
-    border: 1px solid #555;
+.form-group input, 
+.form-group select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
 }
 
 /* Responsive Design */
-@media screen and (max-width: 768px) {
-    form {
-        grid-template-columns: 1fr;
+@media (max-width: 768px) {
+    .container {
+        width: 100%;
+        padding: 15px;
+    }
+    
+    table {
+        font-size: 14px;
     }
 }
