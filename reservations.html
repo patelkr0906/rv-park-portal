@@ -3,77 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Reservations - RV Park Portal</title>
-    <script type="module" src="firebase.js"></script>
-    <script type="module" src="reservations.js"></script>
-    <script type="module" src="auth.js"></script>
+    <title>Reservations</title>
     <link rel="stylesheet" href="styles.css">
+    <script type="module" src="firebase.js"></script>
+    <script type="module" src="reservations.js" defer></script>
 </head>
 <body>
-    <header>
-        <h1>Reservations</h1>
-    </header>
-
+    <nav class="navbar">
+        <ul>
+            <li><a href="dashboard.html">Dashboard</a></li>
+            <li><a href="reservations.html" class="active">Reservations</a></li>
+            <li><a href="sites.html">Sites</a></li>
+            <li><a href="settings.html">Settings</a></li>
+            <li><button id="logout">Logout</button></li>
+        </ul>
+    </nav>
+    
     <main>
-        <section>
-            <h2>Add New Reservation</h2>
-            <form id="reservationForm">
-                <label for="name">Name:</label>
-                <input type="text" id="name" required>
-                
-                <label for="checkIn">Check-in Date:</label>
-                <input type="date" id="checkIn" required>
-                
-                <label for="checkOut">Check-out Date:</label>
-                <input type="date" id="checkOut" required>
-                
-                <label for="siteNumber">Site Number:</label>
-                <input type="number" id="siteNumber" required>
-                
-                <button type="submit">Add Reservation</button>
-            </form>
-        </section>
-
-        <section>
-            <h2>Reservation List</h2>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Check-in</th>
-                        <th>Check-out</th>
-                        <th>Site Number</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody id="reservationsTableBody">
-                    <!-- Reservations will be dynamically inserted here -->
-                </tbody>
-            </table>
-        </section>
+        <h1>Reservations</h1>
+        <table id="reservationsTable">
+            <thead>
+                <tr>
+                    <th>Guest Name</th>
+                    <th>Check-in</th>
+                    <th>Check-out</th>
+                    <th>Site Number</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Reservations will be loaded here dynamically -->
+            </tbody>
+        </table>
     </main>
-
-    <script type="module">
-        import { addReservation, getReservations } from "./reservations.js";
-
-        // Load reservations on page load
-        document.addEventListener("DOMContentLoaded", async () => {
-            await getReservations();
-        });
-
-        document.getElementById("reservationForm").addEventListener("submit", async (e) => {
-            e.preventDefault();
-            
-            const name = document.getElementById("name").value;
-            const checkIn = document.getElementById("checkIn").value;
-            const checkOut = document.getElementById("checkOut").value;
-            const siteNumber = document.getElementById("siteNumber").value;
-
-            await addReservation(name, checkIn, checkOut, siteNumber);
-
-            // Clear form after submission
-            e.target.reset();
-        });
-    </script>
 </body>
 </html>
