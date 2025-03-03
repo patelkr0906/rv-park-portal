@@ -1,63 +1,37 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard - RV Park Management</title>
-    <link rel="stylesheet" href="styles.css">
-    <script defer src="dashboard.js"></script>
-</head>
-<body>
-    <nav>
-        <ul>
-            <li><a href="dashboard.html">Dashboard</a></li>
-            <li><a href="sites.html">RV Sites Management</a></li>
-            <li><a href="settings.html">Settings</a></li>
-        </ul>
-    </nav>
+import { auth, db } from "./firebaseConfig.js";
+import { signOut } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+import { doc, getDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
-    <div class="container">
-        <h1>Dashboard</h1>
-        
-        <!-- Dashboard Statistics -->
-        <div class="dashboard-stats">
-            <div class="stat-card">
-                <h3>Total Sites</h3>
-                <p id="totalSites">0</p>
-            </div>
-            <div class="stat-card available">
-                <h3>Available Sites</h3>
-                <p id="availableSites">0</p>
-            </div>
-            <div class="stat-card reserved">
-                <h3>Reserved Sites</h3>
-                <p id="reservedSites">0</p>
-            </div>
-            <div class="stat-card occupied">
-                <h3>Occupied Sites</h3>
-                <p id="occupiedSites">0</p>
-            </div>
-            <div class="stat-card maintenance">
-                <h3>Maintenance Sites</h3>
-                <p id="maintenanceSites">0</p>
-            </div>
-        </div>
+// DOM Elements
+const usernameDisplay = document.getElementById("username");
+const logoutButton = document.getElementById("logoutButton");
 
-        <!-- Recent Reservations -->
-        <div class="dashboard-section">
-            <h2>Recent Reservations</h2>
-            <ul id="recentReservations">
-                <li>Loading...</li>
-            </ul>
-        </div>
+// Check if user is authenticated
+auth.onAuthStateChanged(async (user) => {
+    if (user) {
+        // Retrieve user data from Firestore
+        const userRef = doc(db, "users", user.uid);
+        const userSnap = await getDoc(userRef);
 
-        <!-- Maintenance Alerts -->
-        <div class="dashboard-section">
-            <h2>Maintenance Alerts</h2>
-            <ul id="maintenanceAlerts">
-                <li>Loading...</li>
-            </ul>
-        </div>
-    </div>
-</body>
-</html>
+        if (userSnap.exists()) {
+            const userData = userSnap.data();
+            usernameDisplay.textContent = userData.name || "User";
+        } else {
+            console.error("No user data found in Firestore.");
+            usernameDisplay.textContent = "User";
+        }
+    } else {
+        // Redirect to login page if not authenticated
+        window.location.href = "index.html";
+    }
+});
+
+// Logout Functionality
+logoutButton.addEventListener("click", async () => {
+    try {
+        await signOut(auth);
+        window.location.href = "index.html";
+    } catch (error) {
+        console.error("Error signing out:", error);
+    }
+});
