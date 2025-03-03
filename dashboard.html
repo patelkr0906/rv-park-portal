@@ -3,40 +3,70 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard</title>
+    <title>Dashboard | RV Park Portal</title>
     <link rel="stylesheet" href="styles.css">
-    <script type="module" src="firebaseConfig.js"></script>
-    <script type="module" src="auth.js"></script>
-    <script type="module" src="dashboard.js"></script>
-    <script type="module" src="darkMode.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script type="module" src="dashboard.js" defer></script>
 </head>
 <body>
-    <header>
+    <nav class="navbar">
+        <ul>
+            <li><a href="dashboard.html">Dashboard</a></li>
+            <li><a href="reservations.html">Reservations</a></li>
+            <li><a href="sites.html">Sites</a></li>
+            <li><a href="settings.html">Settings</a></li>
+            <li><a href="#" id="logout">Logout</a></li>
+        </ul>
+    </nav>
+    
+    <main class="dashboard-container">
         <h1>Dashboard</h1>
-        <label class="switch">
-            <input type="checkbox" id="darkModeToggle">
-            <span class="slider round"></span>
-        </label>
-        <button id="logoutButton">Logout</button>
-    </header>
-
-    <main>
-        <section>
-            <h2>Welcome, <span id="username">User</span></h2>
-            <p>Manage your settings and reservations here.</p>
+        
+        <section class="widgets">
+            <div class="widget" id="total-reservations">
+                <h2>Total Reservations</h2>
+                <p id="reservations-count">0</p>
+            </div>
+            <div class="widget" id="occupancy-rate">
+                <h2>Occupancy Rate</h2>
+                <p id="occupancy-percentage">0%</p>
+            </div>
+            <div class="widget" id="revenue-summary">
+                <h2>Revenue Summary</h2>
+                <p id="revenue-amount">$0.00</p>
+            </div>
+            <div class="widget" id="recent-activity">
+                <h2>Recent Check-ins & Check-outs</h2>
+                <ul id="recent-activity-list"></ul>
+            </div>
         </section>
-
-        <nav>
-            <ul>
-                <li><a href="reservations.html">Reservations</a></li>
-                <li><a href="settings.html">Settings</a></li>
-                <li><a href="sites.html">Sites</a></li>
-            </ul>
-        </nav>
+        
+        <section class="charts-container">
+            <canvas id="reservationsChart"></canvas>
+            <canvas id="occupancyChart"></canvas>
+            <canvas id="revenueChart"></canvas>
+        </section>
+        
+        <section class="quick-actions">
+            <button id="add-reservation">Add Reservation</button>
+            <button id="view-available-sites">View Available Sites</button>
+            <button id="check-in-out">Check-In / Check-Out</button>
+        </section>
+        
+        <section class="filters">
+            <input type="text" id="search" placeholder="Search reservations...">
+            <select id="filter-status">
+                <option value="all">All</option>
+                <option value="upcoming">Upcoming</option>
+                <option value="checked-in">Checked-In</option>
+                <option value="checked-out">Checked-Out</option>
+            </select>
+        </section>
+        
+        <section class="notifications">
+            <h2>Notifications</h2>
+            <ul id="notifications-list"></ul>
+        </section>
     </main>
-
-    <footer>
-        <p>&copy; 2025 RV Park Portal</p>
-    </footer>
 </body>
 </html>
