@@ -3,96 +3,73 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RV Sites Management</title>
+    <title>Manage Sites</title>
     <link rel="stylesheet" href="styles.css">
-    <script defer src="sites.js"></script>
+    <script type="module" src="sites.js"></script>
 </head>
 <body>
-    <nav>
-        <ul>
-            <li><a href="dashboard.html">Dashboard</a></li>
-            <li><a href="sites.html">RV Sites Management</a></li>
-            <li><a href="settings.html">Settings</a></li>
-        </ul>
-    </nav>
-    <div class="container">
-        <h1>RV Sites Management</h1>
-        
-        <!-- Search and Filter Section -->
-        <div class="controls">
-            <input type="text" id="searchInput" placeholder="Search sites...">
-            <select id="filterCategory">
-                <option value="">All Site Types</option>
-            </select>
-            <select id="filterStatus">
-                <option value="">All Status</option>
-                <option value="available">Available</option>
-                <option value="occupied">Occupied</option>
-                <option value="maintenance">Maintenance</option>
-            </select>
-            <button id="exportCSV">Export CSV</button>
-            <input type="file" id="importCSV" accept=".csv">
-            <button id="toggleDarkMode">Dark Mode</button>
-        </div>
-        
-        <!-- Site Form -->
-        <form id="siteForm">
-            <input type="text" id="siteNumber" placeholder="Site Number" required>
-            <select id="siteType" required>
-                <option value="">Select Site Type</option>
-                <option value="pull-through">Pull-Through</option>
-                <option value="back-in">Back-In</option>
-                <option value="tent">Tent</option>
-            </select>
-            <select id="siteStatus" required>
-                <option value="">Select Status</option>
-                <option value="available">Available</option>
-                <option value="occupied">Occupied</option>
-                <option value="maintenance">Maintenance</option>
-            </select>
-            <input type="text" id="currentOccupant" placeholder="Current Occupant (if any)">
-            <input type="date" id="reservationDate" placeholder="Reservation Date">
-            <input type="text" id="notes" placeholder="Notes">
-            <input type="text" id="hookups" placeholder="Hookups (Water, Electric, Sewer)">
-            <input type="text" id="siteDimensions" placeholder="Site Dimensions (LxW)">
-            <input type="text" id="maxVehicleSize" placeholder="Max Vehicle Size">
-            <input type="text" id="pricing" placeholder="Pricing (Daily, Weekly, Monthly)">
-            <input type="text" id="guestContact" placeholder="Guest Contact Info">
-            <input type="text" id="vehicleDetails" placeholder="Vehicle Details">
-            <input type="date" id="checkInDate" placeholder="Check-in Date">
-            <input type="date" id="checkOutDate" placeholder="Check-out Date">
-            <input type="text" id="maintenanceNotes" placeholder="Maintenance Notes">
-            <input type="text" id="paymentStatus" placeholder="Payment Status">
-            <button type="submit">Add Site</button>
-        </form>
-        
-        <!-- Sites Table -->
-        <table>
-            <thead>
-                <tr>
-                    <th>Site Number <button class="sort" data-sort="siteNumber">↕</button></th>
-                    <th>Type</th>
-                    <th>Status</th>
-                    <th>Current Occupant</th>
-                    <th>Reservation Date</th>
-                    <th>Notes</th>
-                    <th>Hookups</th>
-                    <th>Dimensions</th>
-                    <th>Max Vehicle Size</th>
-                    <th>Pricing</th>
-                    <th>Guest Contact</th>
-                    <th>Vehicle Details</th>
-                    <th>Check-in</th>
-                    <th>Check-out</th>
-                    <th>Maintenance Notes</th>
-                    <th>Payment Status</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody id="sitesTableBody">
-                <!-- Sites will be displayed here -->
-            </tbody>
-        </table>
-    </div>
+    <header>
+        <h1>Manage Sites</h1>
+        <nav>
+            <a href="dashboard.html">Dashboard</a>
+            <a href="reservations.html">Reservations</a>
+            <a href="settings.html">Settings</a>
+        </nav>
+    </header>
+
+    <main>
+        <section id="site-management">
+            <h2>Site List</h2>
+            <button id="addSiteBtn">Add New Site</button>
+            
+            <table id="sitesTable">
+                <thead>
+                    <tr>
+                        <th>Site Name</th>
+                        <th>Type</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Site data will be dynamically populated here -->
+                </tbody>
+            </table>
+        </section>
+
+        <section id="siteFormContainer" class="hidden">
+            <h2 id="formTitle">Add/Edit Site</h2>
+            <form id="siteForm">
+                <label for="siteName">Site Name:</label>
+                <input type="text" id="siteName" required>
+
+                <label for="siteType">Site Type:</label>
+                <select id="siteType">
+                    <option value="RV">RV</option>
+                    <option value="Tent">Tent</option>
+                    <option value="Cabin">Cabin</option>
+                </select>
+
+                <label for="siteStatus">Status:</label>
+                <select id="siteStatus">
+                    <option value="Available">Available</option>
+                    <option value="Occupied">Occupied</option>
+                    <option value="Maintenance">Maintenance</option>
+                </select>
+
+                <button type="submit">Save</button>
+                <button type="button" id="cancelBtn">Cancel</button>
+            </form>
+        </section>
+    </main>
+
+    <script type="module">
+        import { loadSites, setupSiteForm } from "./sites.js";
+
+        document.addEventListener("DOMContentLoaded", () => {
+            loadSites();
+            setupSiteForm();
+        });
+    </script>
 </body>
 </html>
